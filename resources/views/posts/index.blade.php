@@ -1,54 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data Mahasiswa</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Database | Latihan</title>
 </head>
 
-<body style="background: lightgray">
+<body style="background: rgb(41, 40, 40)">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
-                <div class="card border-0 shadow rounded">
+                <div>
+                    <h3 class="text-center my-4 text-white">Latihan CRUD Laravel 11</h3>
+                </div>
+                <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <a href="{{ route('posts.create') }}" class="btn btn-md btn-success mb-3">TAMBAH MAHASISWA</a>
+                        <a href="{{ route('posts.create') }}" class="btn btn-md btn-success mb-3">Tambah Mahasiswa</a>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">FOTO</th>
+                                    <th scope="col">Gambar</th>
                                     <th scope="col">NIM</th>
-                                    <th scope="col">NAMA MAHASISWA</th>
-                                    <th scope="col">ACT</th>
+                                    <th scope="col">Nama Mahasiswa</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($posts as $post)
                                     <tr>
                                         <td class="text-center">
-                                            <img src="{{ Storage::url('public/posts/') . $post->foto_mahasiswa }}"
-                                                class="rounded-circle" style="width: 80px; height: 85px">
+                                            <img src="{{asset('storage/public/posts/'. $post->foto_mahasiswa) }}" class="rounded" style="width: 150px">
                                         </td>
                                         <td>{{ $post->nim }}</td>
                                         <td>{{ $post->nama_mahasiswa }}</td>
                                         <td class="text-center">
-                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                                                <a href="{{ route('posts.edit', $post->id) }}"
-                                                    class="btn btn-sm btn-primary">EDIT</a>
+                                            <form onsubmit="return confirm('Apakah Anda Yakin ?')" action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                                                <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-dark">Show</a>
+                                                <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn- danger">HAPUS</button>
+                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                             </form>
                                         </td>
                                     </tr>
                                 @empty
                                     <div class="alert alert-danger">
-                                        Data Mahasiswa belum Tersedia. </div>
+                                        Data Mahasiswa belum tersedia.
+                                    </div>
                                 @endforelse
                             </tbody>
                         </table>
@@ -58,15 +65,21 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
-        //message with toastr
         @if(session()->has('success'))
-            toastr.success('{{ session('success') }}', 'BERHASIL!');
+            toastr.success('{{ session('success') }}', 'Berhasil!');
         @elseif(session()->has('error'))
-            toastr.error('{{ session('error') }}', 'GAGAL!');
+            toastr.error('{{ session('error') }}', 'Gagal!');
         @endif
     </script>
 </body>
