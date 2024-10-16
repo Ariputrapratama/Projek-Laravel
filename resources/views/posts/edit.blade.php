@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label class="font-weight-bold">Foto</label>
                                 <input type="file" class="form-control" name="foto_mahasiswa">
-                                <img src="{{ Storage::url('public/posts/').$post- >foto_mahasiswa }}" class="rounded"
+                                <img src="{{ Storage::url('public/posts/').$post->foto_mahasiswa }}" class="rounded"
                                     style="width: 150px">
                             </div>
                             <div class="form-group">

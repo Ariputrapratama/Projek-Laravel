@@ -38,7 +38,7 @@
                                 @forelse ($posts as $post)
                                     <tr>
                                         <td class="text-center">
-                                            <img src="{{asset('storage/public/posts/'. $post->foto_mahasiswa) }}" class="rounded" style="width: 150px">
+                                            <img src="{{asset('storage/public/posts/'. $post->foto_mahasiswa) }}" class="rounded-circle" style="width: 150px; height: 155px;">
                                         </td>
                                         <td>{{ $post->nim }}</td>
                                         <td>{{ $post->nama_mahasiswa }}</td>

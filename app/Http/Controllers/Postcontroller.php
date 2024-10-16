@@ -48,7 +48,7 @@ class Postcontroller extends Controller
     public function update(Request $request, Post $post)
     {
         //validate form
-        $this->validate($request, [
+        $request->validate([
             'foto_mahasiswa' =>
                 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nim' => 'required|min:5',
@@ -77,6 +77,17 @@ class Postcontroller extends Controller
         //redirect to index
         return redirect()->route('posts.index')->with([
             'success' => 'Data Berhasil Diubah!'
+        ]);
+    }
+    public function destroy(Post $post)
+    {
+        //delete image
+        Storage::delete('public/posts/' . $post->image);
+        //delete post
+        $post->delete();
+        //redirect to index
+        return redirect()->route('posts.index')->with([
+            'success' => 'Data Berhasil Dihapus!'
         ]);
     }
 }
